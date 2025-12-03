@@ -38,7 +38,7 @@ public class FileHandler {
       }
         
     }
-    public static String findById( String filePath, int id){
+    public static String findById(String filePath, int id){
         ArrayList<String> lines=read(filePath);
         for (String line : lines){
             String[] parts = line.split(",");

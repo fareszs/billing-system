@@ -1,2 +1,3 @@
-2,fares,c
-3,khaled,m
+2,fares,pass_fares,user,fares,cairo
+3,khaled,pass_khaled,user,khaled,deyarb_negm
+4,omar,pass_omar,user,omar,belkas

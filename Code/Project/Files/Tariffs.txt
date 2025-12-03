@@ -1,0 +1,4 @@
+Cairo,1.25
+Giza,1.10
+Alex,1.30
+Aswan,0.95

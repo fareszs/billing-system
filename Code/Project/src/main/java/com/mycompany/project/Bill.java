@@ -1,3 +1,5 @@
+package com.mycompany.project;
+
 
 public class Bill {
     private int billId;

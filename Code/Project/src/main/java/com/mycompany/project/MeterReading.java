@@ -1,3 +1,5 @@
+package com.mycompany.project;
+
 
 public class MeterReading {
     private int readingId;

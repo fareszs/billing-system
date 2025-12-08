@@ -1,3 +1,5 @@
+package com.mycompany.project;
+
 public class Tariff {
 
     private static String region;

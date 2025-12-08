@@ -93,6 +93,7 @@ public class FileHandler {
                 continue;
             try{ if(Integer.parseInt(parts[0])==id)
                lines.remove(i);
+                i--; 
             }
            catch(NumberFormatException e){
                continue;

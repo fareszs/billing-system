@@ -1,3 +1,5 @@
+package com.mycompany.project;
+
 
 public class Complaint {
     private int complaintId, customerId;

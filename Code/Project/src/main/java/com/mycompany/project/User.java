@@ -1,15 +1,23 @@
 package com.mycompany.project;
-
 import java.util.ArrayList;
-
-
 public class User {
     private int id;
     private String username;
     private String password;
     private String role;
     private boolean loggedIn = false;
-
+    public int getId() { return id; }
+    public String getRole() { return role; }
+    public String getUsername() { return username; }
+     public String getPassword() { return password; }
+    public boolean isLoggedIn() { return loggedIn; }
+    
+    public User(int id, String username, String password, String role){
+    this.id = id;
+    this.username = username;
+    this.password = password;
+    this.role = role;
+}
     public boolean login(String username, String pass){
         ArrayList<String> details = FileHandler.findByField("Files\\Users.txt", 1, username);   
         for(String detail : details){
@@ -31,7 +39,6 @@ public class User {
     return false;
         
          }
-    
     public void logout(){
         this.id = 0;
         this.username = null;
@@ -39,6 +46,4 @@ public class User {
         this.role = null;
         this.loggedIn = false;
     }
-
-
 }

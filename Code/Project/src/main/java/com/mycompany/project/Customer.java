@@ -1,3 +1,4 @@
+package com.mycompany.project;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -13,9 +14,8 @@ public class Customer extends User{
         this.isnew = isnew;
         this.name = name;
         creationTime = LocalDateTime.now();
-        if(isnew == false){
-            String userLine = id+","+password+","+"customer"+","+name+","+region+","+meterCode;
-            FileHandler.write("Files\\Users.txt" , userLine);
+        if (isnew){
+            this.register();
         }
     }
     public void setMetercode(String meterCode){
@@ -38,10 +38,16 @@ public class Customer extends User{
     }
 
     public void register(){
-        String userData = super.getId() + "," + super.getUsername() + "," + this.meterCode + "," + this.region;
+        String userLine = super.getId() + "," +
+                          super.getUsername() + "," +
+                          super.getPassword() + "," +
+                          "newcustomer," +
+                          name + "," +
+                          region + "," +
+                          meterCode;
+
+        FileHandler.write("Files\\Users.txt", userLine);
         System.out.println("Customer registered successfully: " + super.getUsername());
-        String userLine = super.getId()+","+super.getPassword()+","+"customer"+","+name+","+region+","+meterCode;
-        FileHandler.write("Files\\Users.txt" , userLine);
     }
 
     public void attachContract(String path){
@@ -49,19 +55,22 @@ public class Customer extends User{
         System.out.println("Contract attached from path: " + path);
     }
 
-    public static void payBill(String meterCode , double newReading , double oldReading){
+    public void payBill(double newReading, double oldReading) {
         int billId = (int) (Math.random() * 10000);
         Date billDate = new Date();
-        double value = (newReading-oldReading)*Tariff.getPricePerUnit;
-        boolean isPaid = true;
-        Bill newBill = new Bill(billId , super.getId() , value , billDate , isPaid);
-        System.out.println("Bill ID : " + billId);
-        System.out.println("Customer ID : " + super.getId());
-        System.out.println("Meter Code : " + this.getMeterCode() );
-        System.out.println("Date : " + billDate);
-        System.out.println("Current Reading : " + newReading);
-        System.out.println("Previous Reading : " + oldReading);
-        System.out.println("The value of bill : " + value);
+        double billValue = (newReading - oldReading) * Tariff.getPricePerUnit();
+
+        Bill bill = new Bill(billId, super.getId(), billValue, billDate.toString(), true);
+
+        System.out.println("----- Bill Issued -----");
+        System.out.println("Bill ID: " + billId);
+        System.out.println("Customer ID: " + super.getId());
+        System.out.println("Meter Code: " + meterCode);
+        System.out.println("Date: " + billDate);
+        System.out.println("Old Reading: " + oldReading);
+        System.out.println("New Reading: " + newReading);
+        System.out.println("Bill Value: " + billValue);
+        System.out.println("-----------------------");
     }
 
     public void complaint(String meterCode , String text){
@@ -71,7 +80,7 @@ public class Customer extends User{
     }
 
     public void enterReading(int readingValue, String meterCode){
-        Operator.inputReading(readingValue , meterCode);
+        Operator.inputReading( Integer.parseInt(meterCode), readingValue);
     }
 
     public boolean isThreeMonthsPassed() {

@@ -2,14 +2,6 @@ package com.mycompany.project;
 
 import java.util.ArrayList;
 
-/* 
-This class mainly for login an logout functionalities and defining main attributes of users
-
-## Login:
-    it will be done by checking the ID and the password of the user,
-    I have used ID for login rather than the username, as the username could be repeated,
-    So, We have to implement the Logic of login by using the unique key (ID)
-*/
 
 public class User {
     private int id;
@@ -19,8 +11,7 @@ public class User {
     private boolean loggedIn = false;
 
     public boolean login(String username, String pass){
-        ArrayList<String> details = FileHandler.findByField("C:\\Users\\lenovo\\Documents\\GitHub\\billing-system\\Code\\Project\\Files\\Users.txt", 1, username);
-        boolean loggedIn = false;
+        ArrayList<String> details = FileHandler.findByField("Files\\Users.txt", 1, username);   
         for(String detail : details){
             String[] parts = detail.split(",");
             // Check if the line has enough parts before accessing them
@@ -32,15 +23,14 @@ public class User {
                 this.role = parts[3];
                 this.loggedIn = true;
                 // Once we've found the user and logged in, we can stop searching
-                break; 
+               return true;
             }
-            else {
-            System.out.println("Wrong username or password");
-        }
         }
         
-        return loggedIn;
-    }
+    System.out.println("Wrong username or password");
+    return false;
+        
+         }
     
     public void logout(){
         this.id = 0;
@@ -49,13 +39,6 @@ public class User {
         this.role = null;
         this.loggedIn = false;
     }
-public static void main(String[] args) {
-    User omar = new User();
-    System.out.println(omar.loggedIn);
-    omar.login("omar", "pass_omar");
-    System.out.println(omar.loggedIn);
-    omar.logout();
-    System.out.println(omar.loggedIn);
-}
+
 
 }

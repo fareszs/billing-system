@@ -3,9 +3,9 @@ public class Tariff {
     private static String region;
     private static double pricePerUnit;
 
-    public static void init(String reg, double price) {
-        region = reg;
-        pricePerUnit = price;
+    public Tariff(String reg, double price) {
+    region = reg;
+    pricePerUnit = price;
     }
 
     public static String getRegion() {

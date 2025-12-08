@@ -1,33 +1,62 @@
 package com.mycompany.project;
 
+import java.io.File;
+import java.util.Scanner;
+
 public class Tariff {
 
-    private static String region;
-    private static double pricePerUnit;
+    private String region;
+    private double pricePerUnit;
 
-    public Tariff(String reg, double price) {
-    region = reg;
-    pricePerUnit = price;
+    public Tariff(String region, double price) {
+        this.region = region;
+        this.pricePerUnit = price;
     }
 
-    public static String getRegion() {
+    public String getRegion() {
         return region;
     }
 
-    public static void setRegion(String reg) {
-        region = reg;
-    }
-
-    public static double getPricePerUnit() {
+    public double getPricePerUnit() {
         return pricePerUnit;
     }
 
-    public static void setPricePerUnit(double price) {
-        pricePerUnit = price;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
-    public static String toStr() {
-        return "Tariff [region=" + region + ", pricePerUnit=" + pricePerUnit + "]";
+    public void setPricePerUnit(double pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
+    }
+
+    public String toStr() {
+        return region + "," + pricePerUnit;
+    }
+
+    public static double getPriceByRegion(String searchRegion) {
+        try {
+            Scanner sc = new Scanner(new File("Tariffs.txt"));
+
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] parts = line.split(",");
+
+                if (parts.length == 2) {
+                    String fileRegion = parts[0].trim();
+                    double filePrice = Double.parseDouble(parts[1].trim());
+
+                    if (fileRegion.equalsIgnoreCase(searchRegion)) {
+                        sc.close();
+                        return filePrice;
+                    }
+                }
+            }
+
+            sc.close();
+        } catch (Exception e) {
+            return -1; // file error or region not found
+        }
+
+        return -1; // region not found
     }
 }
-

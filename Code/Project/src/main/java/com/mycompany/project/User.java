@@ -12,11 +12,7 @@ public class User {
      public String getPassword() { return password; }
     public boolean isLoggedIn() { return loggedIn; }
     
-    public User(int id, String username, String password, String role){
-    this.id = id;
-    this.username = username;
-    this.password = password;
-    this.role = role;
+    public User(){
 }
     public boolean login(String username, String pass){
         ArrayList<String> details = FileHandler.findByField("Files\\Users.txt", 1, username);   

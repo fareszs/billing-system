@@ -1,6 +1,7 @@
 package com.mycompany.project;
 
 
+
 public class MeterReading {
     private int readingId;
     private int customerId;
@@ -27,7 +28,7 @@ public class MeterReading {
 
     public void save() {
         String line = this.readingId + "," +   this.customerId + "," +   this.date + "," +   this.value + "," +   this.isValidated;
-        FileHandler.write("Files\\meterreadings.txt", line);//اللوكيشن حر يرلجعهس
+        FileHandler.write("Files\\MeterReadings.txt", line);//اللوكيشن حر يرلجعهس
     }
 
 

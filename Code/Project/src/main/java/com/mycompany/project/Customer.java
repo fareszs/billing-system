@@ -6,17 +6,7 @@ public class Customer extends User{
     private String meterCode , region , email , contractImagePath , name;
     private boolean isnew = false;
     private LocalDateTime creationTime;
-    public Customer(int id , String username , String password , String name , String meterCode , String region , String email , boolean isnew){
-        super(id, username, password, "Customer");
-        this.meterCode = meterCode;
-        this.region = region;
-        this.email = email;
-        this.isnew = isnew;
-        this.name = name;
-        creationTime = LocalDateTime.now();
-        if (isnew){
-            this.register();
-        }
+    public Customer(){
     }
     public void setMetercode(String meterCode){
         this.meterCode = meterCode;
@@ -38,6 +28,7 @@ public class Customer extends User{
     }
 
     public void register(){
+        creationTime = LocalDateTime.now();
         String userLine = super.getId() + "," +
                           super.getUsername() + "," +
                           super.getPassword() + "," +
@@ -49,28 +40,21 @@ public class Customer extends User{
         FileHandler.write("Files\\Users.txt", userLine);
         System.out.println("Customer registered successfully: " + super.getUsername());
     }
-
     public void attachContract(String path){
         this.contractImagePath = path;
         System.out.println("Contract attached from path: " + path);
     }
+     public void sendEmail(){
+        if(this.isnew==true && isThreeMonthsPassed()){
+            System.out.println("Meter of customer number : " +super.getId()+" is ready" );
+        }
+    }
 
-    public void payBill(double newReading, double oldReading) {
+    public void payBill(String meterCode , double newReading , double oldReading){
         int billId = (int) (Math.random() * 10000);
         Date billDate = new Date();
-        double billValue = (newReading - oldReading) * Tariff.getPricePerUnit();
-
+        double billValue = (newReading - oldReading) * Tariff.getPriceByRegion(region);
         Bill bill = new Bill(billId, super.getId(), billValue, billDate.toString(), true);
-
-        System.out.println("----- Bill Issued -----");
-        System.out.println("Bill ID: " + billId);
-        System.out.println("Customer ID: " + super.getId());
-        System.out.println("Meter Code: " + meterCode);
-        System.out.println("Date: " + billDate);
-        System.out.println("Old Reading: " + oldReading);
-        System.out.println("New Reading: " + newReading);
-        System.out.println("Bill Value: " + billValue);
-        System.out.println("-----------------------");
     }
 
     public void complaint(String meterCode , String text){
@@ -87,13 +71,6 @@ public class Customer extends User{
         LocalDateTime after3Months = creationTime.plusMonths(3);
         return LocalDateTime.now().isAfter(after3Months);
     }
-
-    public void sendEmail(){
-        if(this.isnew==true && isThreeMonthsPassed()){
-            System.out.println("Meter of customer number : " +super.getId()+" is ready" );
-        }
-    }
-
     public void notifyCustomer(){
         if(this.isnew == false && isThreeMonthsPassed()){
             System.out.println("Customer number : "+super.getId()+" didnot pay for 3 months");

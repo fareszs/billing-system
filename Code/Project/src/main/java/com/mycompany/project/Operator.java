@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class Operator extends User {
 
-    public Operator(int id, String username, String password, String role) {
-        super(id, username, password, role);
+    public Operator() {
     }
 
     private static int getCustomerIdByMeterCode(int meterCode) {
@@ -94,4 +93,5 @@ public class Operator extends User {
         String file = "Tariffs.txt";
         FileHandler.write(file, region + "," + price);
     }
+    
 }

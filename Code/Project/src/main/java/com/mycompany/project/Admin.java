@@ -6,10 +6,10 @@ public class Admin extends Operator {
         
     }
 
-    public static void viewBillsForRegion(String region) {
-        // Call the Operator method and return same output
-        Operator.viewBillsByRegion(region);
+    public static ArrayList<String> viewBillsForRegion(String region) {
+        return Operator.viewBillsByRegion(region);
     }
+
 
     public static double getTotalCollected() {
         double total = 0.0;

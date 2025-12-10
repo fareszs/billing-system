@@ -93,5 +93,45 @@ public class Operator extends User {
         String file = "Tariffs.txt";
         FileHandler.write(file, region + "," + price);
     }
+
+    public static void viewBillsByRegion(String region) {
+        ArrayList<String> users = FileHandler.read("Users.txt");
+        ArrayList<Integer> regionUserIds = new ArrayList<>();
+    
+        // Collect all customer IDs in the given region
+        for (String line : users) {
+            String[] parts = line.split(",");
+            int userId = Integer.parseInt(parts[0]);
+            String userRegion = parts[5];
+    
+            if (userRegion.equalsIgnoreCase(region)) {
+                regionUserIds.add(userId);
+            }
+        }
+    
+        if (regionUserIds.isEmpty()) {
+            System.out.println("No users found in region: " + region);
+            return;
+        }
+    
+        // Read their bills
+        ArrayList<String> bills = FileHandler.read("Bills.txt");
+        boolean found = false;
+    
+        for (String bill : bills) {
+            String[] parts = bill.split(",");
+            int customerId = Integer.parseInt(parts[1]);
+    
+            if (regionUserIds.contains(customerId)) {
+                System.out.println(bill);
+                found = true;
+            }
+        }
+    
+        if (!found) {
+            System.out.println("No bills found for region: " + region);
+        }
+    }
+
     
 }

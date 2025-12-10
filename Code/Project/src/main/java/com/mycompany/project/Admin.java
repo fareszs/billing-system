@@ -1,8 +1,9 @@
 package com.mycompany.project;
-
+import java.util.*;
 public class Admin extends Operator {
 
     public Admin() {
+        
     }
 
     public static void viewBillsForRegion(String region) {
@@ -41,8 +42,6 @@ public class Admin extends Operator {
     }
     
     public static void viewRegionConsumptionStatistics(String region) {
-
-        // Reuse Operator method to get users in region
         ArrayList<Integer> regionUserIds = Operator.getUserIdsByRegion(region);
     
         if (regionUserIds.isEmpty()) {

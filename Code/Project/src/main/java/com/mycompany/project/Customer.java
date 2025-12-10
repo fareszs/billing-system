@@ -50,13 +50,6 @@ public class Customer extends User{
         }
     }
 
-    public void payBill(String meterCode , double newReading , double oldReading){
-        int billId = (int) (Math.random() * 10000);
-        Date billDate = new Date();
-        double billValue = (newReading - oldReading) * Tariff.getPriceByRegion(region);
-        Bill bill = new Bill(billId, super.getId(), billValue, billDate.toString(), true);
-    }
-
     public void complaint(String meterCode , String text){
         int complaintId = (int) (Math.random() * 10000);
         Complaint cmp = new Complaint(complaintId, super.getId(), text);

@@ -1,6 +1,7 @@
 package com.mycompany.project;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Operator extends User {
 
@@ -15,7 +16,6 @@ public class Operator extends User {
 
             int userId = Integer.parseInt(parts[0]);
             int fileMeterCode = Integer.parseInt(parts[4]);
-
             if (fileMeterCode == meterCode) {
                 return userId; // customerId = userId
             }
@@ -64,7 +64,6 @@ public class Operator extends User {
     public static boolean validateReading(int prev, int current) {
         return current >= prev;
     }
-
     public static void printBill(int meterCode) {
         int customerId = getCustomerIdByMeterCode(meterCode);
 
@@ -88,17 +87,15 @@ public class Operator extends User {
 
         System.out.println("No bill found for this customer.");
     }
-
     public static void defineTariff(String region, double price) {
         String file = "Tariffs.txt";
         FileHandler.write(file, region + "," + price);
     }
-
-    public static void viewBillsByRegion(String region) {
+     public static ArrayList<String> viewBillsByRegion(String region) {
         ArrayList<String> users = FileHandler.read("Users.txt");
         ArrayList<Integer> regionUserIds = new ArrayList<>();
+        ArrayList<String> resultBills = new ArrayList<>();
     
-        // Collect all customer IDs in the given region
         for (String line : users) {
             String[] parts = line.split(",");
             int userId = Integer.parseInt(parts[0]);
@@ -110,27 +107,27 @@ public class Operator extends User {
         }
     
         if (regionUserIds.isEmpty()) {
-            System.out.println("No users found in region: " + region);
-            return;
+            return resultBills;
         }
     
-        // Read their bills
         ArrayList<String> bills = FileHandler.read("Bills.txt");
-        boolean found = false;
     
         for (String bill : bills) {
             String[] parts = bill.split(",");
             int customerId = Integer.parseInt(parts[1]);
     
             if (regionUserIds.contains(customerId)) {
-                System.out.println(bill);
-                found = true;
+                resultBills.add(bill);
             }
         }
     
-        if (!found) {
-            System.out.println("No bills found for region: " + region);
-        }
+        return resultBills;
+    }
+    public void payBill(String meterCode , double newReading , double oldReading){
+        int billId = (int) (Math.random() * 10000);
+        Date billDate = new Date();
+        double billValue = (newReading - oldReading) * Tariff.getPriceByRegion(region);
+        Bill bill = new Bill(billId, super.getId(), billValue, billDate.toString(), true);
     }
 
     

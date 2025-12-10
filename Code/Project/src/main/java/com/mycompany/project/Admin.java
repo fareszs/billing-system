@@ -65,9 +65,6 @@ public class Admin extends Operator {
     double totalConsumption = 0;
     int counted = 0;
 
-    System.out.println("Consumption statistics for region: " + region);
-    System.out.println("--------------------------------------");
-
     for (int userId : regionUserIds) {
         int latest = -1;
 
@@ -91,6 +88,7 @@ public class Admin extends Operator {
     }
 
     if (counted > 0) {
+        System.out.println("Consumption statistics for region: " + region);
         System.out.println("Total region consumption: " + totalConsumption);
         System.out.println("Total People: " + counted);
         System.out.println("Average consumption: " + (totalConsumption / counted));

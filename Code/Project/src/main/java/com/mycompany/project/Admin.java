@@ -9,5 +9,22 @@ public class Admin extends Operator {
         // Call the Operator method and return same output
         Operator.viewBillsByRegion(region);
     }
+
+    public static double getTotalCollected() {
+        double total = 0.0;
+    
+        for (String line : FileHandler.read("Files\\Bills.txt")) {
+            String[] parts = line.split(",");
+    
+            boolean isPaid = Boolean.parseBoolean(parts[4]);
+            if (isPaid) {
+                double amount = Double.parseDouble(parts[2]);
+                total += amount;
+            }
+        }
+    
+        return total;
+    }
+
 }
 

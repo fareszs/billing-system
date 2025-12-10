@@ -26,5 +26,19 @@ public class Admin extends Operator {
         return total;
     }
 
+    public static void addUser(int id, String username, String password, String role, String name, String region) {
+        String line = id + "," + username + "," + password + "," + role + "," + name + "," + region;
+        FileHandler.write("Files\\Users.txt", line);
+    }
+
+    public static void deleteUser(int id) {
+        FileHandler.deleteLineById("Files\\Users.txt", id);
+    }
+
+    public static void updateUser(int id, String username, String password, String role, String name, String region) {
+        String newLine = id + "," + username + "," + password + "," + role + "," + name + "," + region;
+        FileHandler.updateLineById("Files\\Users.txt", id, newLine);
+    }
+
 }
 

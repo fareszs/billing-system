@@ -60,7 +60,7 @@ public class Admin extends Operator {
         return;
     }
 
-    ArrayList<String> readings = FileHandler.read("Files\\Readings.txt");
+    ArrayList<String> readings = FileHandler.read("Files\\MeterReadings.txt");
 
     double totalConsumption = 0;
     int counted = 0;

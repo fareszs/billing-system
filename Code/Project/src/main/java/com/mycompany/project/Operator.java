@@ -5,10 +5,8 @@ import java.util.Date;
 
 public class Operator extends User {
 
-    public Operator() {
-    }
 
-    private static int getCustomerIdByMeterCode(int meterCode) {
+    public static int getCustomerIdByMeterCode(int meterCode) {
         ArrayList<String> users = FileHandler.read("Users.txt");
 
         for (String line : users) {
@@ -23,44 +21,58 @@ public class Operator extends User {
 
         return -1; // not found
     }
+    public static void inputReading(int meterCode, int newReading) {
 
-    public static void inputReading(int meterCode, int value) {
+    try {
         int customerId = getCustomerIdByMeterCode(meterCode);
 
         if (customerId == -1) {
-            System.out.println("Meter code does not belong to any customer.");
+            System.out.println("Error: Meter code does not belong to any customer.");
             return;
         }
 
         String file = "MeterReadings.txt";
         ArrayList<String> lines = FileHandler.read(file);
 
-        int prevValue = 0;
+        int oldReading = 0;
+        boolean foundPrevious = false;
         for (String line : lines) {
             String[] parts = line.split(",");
-            int fileCustomerId = Integer.parseInt(parts[1]);
+            if (parts.length < 7) 
+                continue;
+
+            int fileCustomerId;
+            try {
+                fileCustomerId = Integer.parseInt(parts[1]);
+            } catch (NumberFormatException e) {
+                continue;
+            }
 
             if (fileCustomerId == customerId) {
-                prevValue = Integer.parseInt(parts[3]);
+                try {
+                    oldReading = Integer.parseInt(parts[4]); 
+                    foundPrevious = true;
+                } catch (NumberFormatException ignored) {}
             }
         }
-
-        boolean isValidated = validateReading(prevValue, value);
-
-        // Unique reading ID
+        boolean isValid = validateReading(oldReading, newReading);
         int readingId = (int)(System.currentTimeMillis() % 10000000);
         String date = java.time.LocalDate.now().toString();
-
         String newLine =
                 readingId + "," +
                 customerId + "," +
+                meterCode + "," +
+                oldReading + "," +
+                newReading + "," +
                 date + "," +
-                value + "," +
-                isValidated;
+                isValid;
 
         FileHandler.write(file, newLine);
-    }
 
+    } catch (Exception e) {
+        System.out.println("Unexpected error while writing reading: " + e.getMessage());
+    }
+}
     public static boolean validateReading(int prev, int current) {
         return current >= prev;
     }
@@ -91,7 +103,7 @@ public class Operator extends User {
         String file = "Tariffs.txt";
         FileHandler.write(file, region + "," + price);
     }
-     public static ArrayList<String> viewBillsByRegion(String region) {
+    public static ArrayList<String> viewBillsByRegion(String region) {
         ArrayList<String> users = FileHandler.read("Users.txt");
         ArrayList<Integer> regionUserIds = new ArrayList<>();
         ArrayList<String> resultBills = new ArrayList<>();
@@ -123,12 +135,5 @@ public class Operator extends User {
     
         return resultBills;
     }
-    public void payBill(String meterCode , double newReading , double oldReading){
-        int billId = (int) (Math.random() * 10000);
-        Date billDate = new Date();
-        double billValue = (newReading - oldReading) * Tariff.getPriceByRegion(region);
-        Bill bill = new Bill(billId, super.getId(), billValue, billDate.toString(), true);
-    }
-
     
 }

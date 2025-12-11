@@ -1,11 +1,6 @@
 package com.mycompany.project;
 import java.util.*;
-public class Admin extends Operator {
-
-    public Admin() {
-        
-    }
-
+public class Admin {
     public static ArrayList<String> viewBillsForRegion(String region) {
         return Operator.viewBillsByRegion(region);
     }

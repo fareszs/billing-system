@@ -7,32 +7,6 @@ public class Tariff {
 
     private String region;
     private double pricePerUnit;
-
-    public Tariff(String region, double price) {
-        this.region = region;
-        this.pricePerUnit = price;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public double getPricePerUnit() {
-        return pricePerUnit;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public void setPricePerUnit(double pricePerUnit) {
-        this.pricePerUnit = pricePerUnit;
-    }
-
-    public String toStr() {
-        return region + "," + pricePerUnit;
-    }
-
     public static double getPriceByRegion(String searchRegion) {
         try {
             Scanner sc = new Scanner(new File("Tariffs.txt"));

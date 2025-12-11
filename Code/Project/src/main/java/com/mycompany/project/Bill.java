@@ -52,7 +52,7 @@ public class Bill {
         System.out.println("Error marking bill as paid: ");
     }
 }
-     public static void AssignBill(int meterCode) {
+    public static void AssignBill(int meterCode) {
     try {
         int customerId = Operator.getCustomerIdByMeterCode(meterCode);
 

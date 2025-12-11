@@ -6,8 +6,6 @@ public class Customer extends User{
     private String meterCode , region , email , contractImagePath , name;
     private boolean isnew = false;
     private LocalDateTime creationTime;
-    public Customer(){
-    }
     public void setMetercode(String meterCode){
         this.meterCode = meterCode;
     }

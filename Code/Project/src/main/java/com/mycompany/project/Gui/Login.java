@@ -1,3 +1,6 @@
+package com.mycompany.project.Gui;
+import com.mycompany.project.*;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 /*
@@ -135,9 +138,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginActionPerformed
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
-        Register registerPage = new Register();
-        registerPage.setVisible(true);
-        this.setVisible(false);
+//        Register registerPage = new Register();
+  //      registerPage.setVisible(true);
+    //    this.setVisible(false);
     }//GEN-LAST:event_registerActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed

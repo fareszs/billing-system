@@ -85,19 +85,27 @@ public class FileHandler {
                 
         
     }
-    public static void deleteLineById(String filePath, int id){
-         ArrayList<String> lines=read(filePath);
-         for (int i=0;i<lines.size();i++){
-            String[] parts = lines.get(i).split(",");
-            if(parts.length<1)
-                continue;
-            try{ if(Integer.parseInt(parts[0])==id)
-               lines.remove(i);
-                i--; 
+public static void deleteLineById(String filePath, int id){
+    ArrayList<String> lines = read(filePath);
+    
+    // Use an Iterator to safely remove elements while looping
+    Iterator<String> iterator = lines.iterator();
+    while (iterator.hasNext()) {
+        String line = iterator.next();
+        String[] parts = line.split(",");
+        
+        if(parts.length < 1) continue;
+        
+        try{ 
+            if(Integer.parseInt(parts[0]) == id) {
+                iterator.remove(); // The safe way to remove the current element
+                // Note: If IDs are unique, you can add 'break;' here
             }
-           catch(NumberFormatException e){
-               continue;
-           }}
-         overWrite(filePath,lines);
+        }
+        catch(NumberFormatException e){
+            continue;
+        }
     }
+    overWrite(filePath, lines);
+}
 }

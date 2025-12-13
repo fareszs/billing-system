@@ -13,4 +13,3 @@
 13,user10,pass000,Customer,Salma Ayman,Giza,1010
 14,user11,p123,Customer,Mostafa Adel,Cairo,1011
 15,user12,p456,Customer,Farah Hassan,Cairo,1012
-100,user,pass1121,Customer,fares,Cairo,1020

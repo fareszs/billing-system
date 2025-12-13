@@ -7,7 +7,7 @@ public class Operator extends User {
 
 
     public static int getCustomerIdByMeterCode(int meterCode) {
-        ArrayList<String> users = FileHandler.read("Users.txt");
+        ArrayList<String> users = FileHandler.read("Files\\Users.txt");
 
         for (String line : users) {
             String[] parts = line.split(",");
@@ -31,7 +31,7 @@ public class Operator extends User {
             return;
         }
 
-        String file = "MeterReadings.txt";
+        String file = "Files\\MeterReadings.txt";
         ArrayList<String> lines = FileHandler.read(file);
 
         int oldReading = 0;
@@ -84,7 +84,7 @@ public class Operator extends User {
             return;
         }
 
-        String file = "Bills.txt";
+        String file = "Files\\Bills.txt";
         ArrayList<String> bills = FileHandler.read(file);
 
         for (String line : bills) {
@@ -100,11 +100,11 @@ public class Operator extends User {
         System.out.println("No bill found for this customer.");
     }
     public static void defineTariff(String region, double price) {
-        String file = "Tariffs.txt";
+        String file = "Files\\Tariffs.txt";
         FileHandler.write(file, region + "," + price);
     }
     public static ArrayList<String> viewBillsByRegion(String region) {
-        ArrayList<String> users = FileHandler.read("Users.txt");
+        ArrayList<String> users = FileHandler.read("Files\\Users.txt");
         ArrayList<Integer> regionUserIds = new ArrayList<>();
         ArrayList<String> resultBills = new ArrayList<>();
     
@@ -122,7 +122,7 @@ public class Operator extends User {
             return resultBills;
         }
     
-        ArrayList<String> bills = FileHandler.read("Bills.txt");
+        ArrayList<String> bills = FileHandler.read("Files\\Bills.txt");
     
         for (String bill : bills) {
             String[] parts = bill.split(",");

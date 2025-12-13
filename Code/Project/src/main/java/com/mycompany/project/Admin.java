@@ -22,8 +22,8 @@ public class Admin {
         return total;
     }
 
-    public static void addUser(int id, String username, String password, String role, String name, String region) {
-        String line = id + "," + username + "," + password + "," + role + "," + name + "," + region;
+    public static void addUser(int id, String username, String password, String role, String name, String region,String meterCode) {
+        String line = id + "," + username + "," + password + "," + role + "," + name + "," + region+","+meterCode;
         FileHandler.write("Files\\Users.txt", line);
     }
 
@@ -31,14 +31,15 @@ public class Admin {
         FileHandler.deleteLineById("Files\\Users.txt", id);
     }
 
-    public static void updateUser(int id, String username, String password, String role, String name, String region) {
-        String newLine = id + "," + username + "," + password + "," + role + "," + name + "," + region;
+    public static void updateUser(int id, String username, String password, String role, String name, String region,String meterCode) {
+        String newLine = id + "," + username + "," + password + "," + role + "," + name + "," + region+","+meterCode;
         FileHandler.updateLineById("Files\\Users.txt", id, newLine);
     }
     
-    public static void viewRegionConsumptionStatistics(String region) {
-    ArrayList<String> users = FileHandler.read("Users.txt");
+    public static String viewRegionConsumptionStatistics(String region) {
+    ArrayList<String> users = FileHandler.read("Files\\Users.txt");
     ArrayList<Integer> regionUserIds = new ArrayList<>();
+    StringBuilder sb= new StringBuilder();
 
     for (String line : users) {
         String[] p = line.split(",");
@@ -51,8 +52,8 @@ public class Admin {
     }
 
     if (regionUserIds.isEmpty()) {
-        System.out.println("No users found in this region.");
-        return;
+       
+        return "No users found in this region.";
     }
 
     ArrayList<String> readings = FileHandler.read("Files\\MeterReadings.txt");
@@ -61,33 +62,34 @@ public class Admin {
     int counted = 0;
 
     for (int userId : regionUserIds) {
-        int latest = -1;
+        int latest;
 
         for (String r : readings) {
             String[] p = r.split(",");
             int cid = Integer.parseInt(p[1]);
-            int newValue = Integer.parseInt(p[3]);
-
-            if (cid == userId) {
-                latest = newValue;
+            int newValue = Integer.parseInt(p[4]);
+            int oldValue = Integer.parseInt(p[3]);
+            boolean valid= Boolean.parseBoolean(p[6]);
+            if ((cid == userId)&&valid) {
+                latest = newValue-oldValue;
+                totalConsumption += latest;
+                counted++;
             }
         }
 
-        if (latest == -1) {
-            System.out.println("User " + userId + " has no readings.");
-            continue;
-        }
+      
         
-        totalConsumption += latest;
-        counted++;
+       
     }
 
     if (counted > 0) {
-        System.out.println("Consumption statistics for region: " + region);
-        System.out.println("Total region consumption: " + totalConsumption);
-        System.out.println("Total People: " + counted);
-        System.out.println("Average consumption: " + (totalConsumption / counted));
+        sb.append("Consumption statistics for region: ").append(region).append("\n");
+        sb.append("Total region consumption: ").append(totalConsumption).append("\n");
+        sb.append("Total People: ").append(counted).append("\n");
+        sb.append("Average consumption: " ).append((totalConsumption / counted)).append("\n");
+        return sb.toString();
     }
+    return "No readings found for this region.";
 }
 
 

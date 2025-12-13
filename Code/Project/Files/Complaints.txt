@@ -1,0 +1,15 @@
+5001,4,Bill amount seems incorrect,Resolved
+5002,5,No electricity for 3 hours,Pending
+5003,6,Wrong meter reading,Resolved
+5004,7,Website not loading,Pending
+5005,9,Technician did not arrive,In Progress
+5006,10,Bill paid but still showing unpaid,Resolved
+5007,11,High consumption issue,Pending
+5008,12,Reading not updated,Pending
+5009,13,App keeps crashing,Resolved
+5010,15,Wrong region tariff applied,In Progress
+5011,4,Meter code mismatch,Resolved
+5012,5,Slow customer support,Pending
+5013,6,Frequent power cuts,Pending
+5014,7,Bill generation delay,Resolved
+5015,9,Unable to submit reading,In Progress

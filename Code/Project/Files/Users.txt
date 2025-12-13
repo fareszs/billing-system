@@ -1,3 +1,16 @@
-2,fares,pass_fares,user,fares,cairo
-3,khaled,pass_khaled,user,khaled,deyarb_negm
-4,omar,pass_omar,user,omar,belkas
+1,admin1,admin123,Admin,Main Admin,Null,Null
+2,operator1,op123,Operator,Ali Hassan,Null,Null
+3,operator2,op234,Operator,Mona Adel,Null,Null
+4,user1,pass11,Customer,Ahmed Mostafa,Cairo,1001
+5,user2,pass222,Customer,Sara Mohamed,Giza,1002
+6,user3,pass333,Customer,Khaled Yasser,Alex,1003
+7,user4,pass444,Customer,Lamia Fathy,Cairo,1004
+8,user5,pass555,Customer,Omar Samy,Giza,1005
+9,user6,pass666,Customer,Noha Tarek,Alex,1006
+10,user7,pass777,Customer,Walid Fouad,Giza,1007
+11,user8,pass888,Customer,Heba Zaki,Cairo,1008
+12,user9,pass999,Customer,Yousef Nabil,Alex,1009
+13,user10,pass000,Customer,Salma Ayman,Giza,1010
+14,user11,p123,Customer,Mostafa Adel,Cairo,1011
+15,user12,p456,Customer,Farah Hassan,Cairo,1012
+100,user,pass1121,Customer,fares,Cairo,1020

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-package com.mycompany.project;
+package com.mycompany.project.Gui;
 //package com.mycompany.project.GUI;
 import com.mycompany.project.*;
 import javax.swing.JOptionPane;

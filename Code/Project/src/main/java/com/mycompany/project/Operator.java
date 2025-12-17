@@ -136,4 +136,10 @@ public class Operator extends User {
         return resultBills;
     }
     
+    public static void main(String[] args) {
+
+    // ✅ Test valid readi
+    inputReading(1001, 1350);
+
+}
 }

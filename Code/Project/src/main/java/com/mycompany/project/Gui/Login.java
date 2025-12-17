@@ -131,16 +131,38 @@ public class Login extends javax.swing.JFrame {
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         String username = user.getText();
         String password = pass.getText();
-        User cus = new User();
-        cus.login(username, password);
-        JOptionPane.showMessageDialog(null, cus.isLoggedIn());
-        
+        User currentUser = new User();
+       if (currentUser.login(username, password)) {
+            String role = currentUser.getRole();
+            this.dispose(); 
+
+            if (role.equalsIgnoreCase("admin")) {
+                new AdminFrame().setVisible(true);
+                
+            } else if (role.equalsIgnoreCase("customer") || role.equalsIgnoreCase("newcustomer")) {
+                Customer cust = new Customer();
+                cust.setter(currentUser.getId(), currentUser.getUsername(), currentUser.getPassword(), currentUser.getRole(), true);
+                new OldCustomer(cust).setVisible(true);
+                
+            }
+            else if (role.equalsIgnoreCase("operator")) {  
+                new OperatorGUI().setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Logged in as " + role);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Username or password are invalid", "Login failed", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_loginActionPerformed
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
 //        Register registerPage = new Register();
   //      registerPage.setVisible(true);
     //    this.setVisible(false);
+    NewCustomer registerPage = new NewCustomer();
+        registerPage.setVisible(true); 
+        this.dispose();
     }//GEN-LAST:event_registerActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed

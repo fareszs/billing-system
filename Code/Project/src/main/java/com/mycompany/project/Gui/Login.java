@@ -39,7 +39,6 @@ public class Login extends javax.swing.JFrame {
         register = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,12 +61,6 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setText("UserName: ");
 
         jLabel2.setText("Password: ");
-
-        logout.setBackground(new java.awt.Color(0, 75, 255));
-        logout.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        logout.setForeground(new java.awt.Color(255, 255, 255));
-        logout.setText("Logout");
-        logout.addActionListener(this::logoutActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,10 +86,8 @@ public class Login extends javax.swing.JFrame {
                         .addGap(111, 111, 111)
                         .addComponent(register))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(login)
-                        .addGap(18, 18, 18)
-                        .addComponent(logout)))
+                        .addGap(149, 149, 149)
+                        .addComponent(login)))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -113,9 +104,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(login)
-                    .addComponent(logout))
+                .addComponent(login)
                 .addGap(18, 18, 18)
                 .addComponent(register)
                 .addContainerGap(33, Short.MAX_VALUE))
@@ -165,15 +154,6 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_registerActionPerformed
 
-    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-        User cus = new User();
-        cus.logout();
-        JOptionPane.showMessageDialog(null, cus.isLoggedIn());
-        user.setText("");
-        pass.setText("");
-        
-    }//GEN-LAST:event_logoutActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -203,7 +183,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton login;
-    private javax.swing.JButton logout;
     private javax.swing.JTextField pass;
     private javax.swing.JButton register;
     private javax.swing.JLabel title;

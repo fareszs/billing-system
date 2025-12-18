@@ -52,13 +52,13 @@ public class Bill {
         System.out.println("Error marking bill as paid: ");
     }
 }
-    public static void AssignBill(int meterCode) {
+    public static int AssignBill(int meterCode) {
     try {
         int customerId = Operator.getCustomerIdByMeterCode(meterCode);
 
         if (customerId == -1) {
             System.out.println(" Error: Meter code does not belong to any customer.");
-            return;
+            return 0;
         }
         String usersFile = "Files\\Users.txt";
         ArrayList<String> users = FileHandler.read(usersFile);
@@ -80,7 +80,7 @@ public class Bill {
 
         if (region == null) {
             System.out.println("Error: Could not find user region.");
-            return;
+            return 0;
         }
         String readingsFile = "Files\\MeterReadings.txt";
         ArrayList<String> readings = FileHandler.read(readingsFile);
@@ -103,7 +103,7 @@ public class Bill {
 
         if (oldReading == -1 || newReading == -1) {
             System.out.println("Error: No readings exist for this customer.");
-            return;
+            return 0;
         }
 
         // 4. Calculate bill value
@@ -125,11 +125,40 @@ public class Bill {
 
         // 7. Write bill line
         FileHandler.write("Files\\Bills.txt", billLine);
-
+         return billId;
     } catch (Exception e) {
         System.out.println(" Error creating bill");
+        return 0;
     }
+   
 }
+    public static boolean payBillByMeterCode(int meterCode) {
+    // 1. Find which customer owns this meter
+    int customerId = Operator.getCustomerIdByMeterCode(meterCode);
+    
+    if (customerId == -1) {
+        System.out.println("Customer not found.");
+        return false;
+    }
+
+    // 2. Look through bills to find an UNPAID bill for this customer
+    ArrayList<String> lines = FileHandler.read("Files\\Bills.txt");
+    for (String line : lines) {
+        String[] parts = line.split(",");
+        if (parts.length < 5) continue;
+
+        int billId = Integer.parseInt(parts[0]);
+        int cId = Integer.parseInt(parts[1]);
+        boolean isPaid = Boolean.parseBoolean(parts[4]);
+
+        // If we find a bill for this customer that is NOT paid
+        if (cId == customerId && !isPaid) {
+            markAsPaid(billId); // Call the existing function with the CORRECT Bill ID
+            return true; // Stop after paying one bill
+        }
+    }
+    return false; // No unpaid bills found
+    }
 
 
 }

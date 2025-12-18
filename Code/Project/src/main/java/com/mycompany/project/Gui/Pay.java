@@ -94,22 +94,31 @@ public class Pay extends javax.swing.JFrame {
     }//GEN-LAST:event_meterCodeActionPerformed
 
     private void payActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payActionPerformed
-        String code = meterCode.getText().trim();
-        if(code.isEmpty()){
-            JOptionPane.showMessageDialog(this ,"Please fill in the field" , "ERROR"  ,  JOptionPane.ERROR_MESSAGE);
-            return;// TODO add your handling code here:
-        }
-        if( code.matches("\\d+")) {
-        System.out.println("Meter code is: " + code);
-        } else {
-        JOptionPane.showMessageDialog(null, "Please enter numbers only for Meter Code!" , "ERROR" ,JOptionPane.ERROR_MESSAGE);
-        meterCode.setText("");
-        }       
-        Bill.AssignBill(Integer.parseInt (code));
-        Bill.markAsPaid(Integer.parseInt (code));
-        JOptionPane.showMessageDialog(this , "Payment successful." , "Successfully" ,JOptionPane.INFORMATION_MESSAGE);
-        meterCode.setText("");
+           String code = meterCode.getText().trim();
+    if(code.isEmpty()){
+        JOptionPane.showMessageDialog(this ,"Please fill in the field" , "ERROR"  ,  JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    if(!code.matches("\\d+")) {
+        JOptionPane.showMessageDialog(null, "Please enter numbers only!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }       
+    
+    int mCode = Integer.parseInt(code);
+
+    // REMOVED: Bill.AssignBill(mCode);  <-- This was creating duplicate bills!
+    
+    // CHANGED: Use the new method that finds the correct ID
+    boolean success = Bill.payBillByMeterCode(mCode);
+
+    if (success) {
+        JOptionPane.showMessageDialog(this, "Payment successful.", "Success", JOptionPane.INFORMATION_MESSAGE);
         this.setVisible(false);
+    } else {
+        JOptionPane.showMessageDialog(this, "No unpaid bills found for this meter.", "Info", JOptionPane.WARNING_MESSAGE);
+    }
+    meterCode.setText("");
     }//GEN-LAST:event_payActionPerformed
 
     /**
